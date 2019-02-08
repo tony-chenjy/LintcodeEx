@@ -1,8 +1,7 @@
 package sorting_algorithm;
 
-
 /**
- * @author cm
+ * @author tony.chenjy
  * @date 2019/2/8 0008 22:48
  */
 public class BubbleSort {
