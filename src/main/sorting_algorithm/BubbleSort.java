@@ -16,15 +16,14 @@ public class BubbleSort {
     }
 
     public static void bubbleSort(int[] array) {
-        if (array == null || array.length < 1) {
+        if (array == null || array.length < 2) {
             return;
         }
 
-        int n = array.length;
-        boolean isExchanged = false;
-        for (int i = 0; i < n - 1; i++) {
+        boolean isExchanged;
+        for (int i = 0; i < array.length; i++) {
             isExchanged = false;
-            for (int j = 0; j < n - 1 - i; j++) {
+            for (int j = 0; j < array.length - 1 - i; j++) {
                 if (array[j + 1] < array[j]) {
                     int temp = array[j + 1];
                     array[j + 1] = array[j];
