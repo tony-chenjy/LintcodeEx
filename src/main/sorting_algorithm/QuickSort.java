@@ -20,7 +20,6 @@ public class QuickSort {
      *
      * space complexity: O(1)
      *
-     * @param array
      */
     public static void quickSort(int[] array, int start, int end) {
         if (start >= end) {

@@ -20,7 +20,6 @@ public class InsertionSort {
      *
      * space complexity: O(1)
      *
-     * @param array
      */
     public static void insertionSort(int[] array) {
         if (array == null || array.length < 2) {
