@@ -10,7 +10,7 @@ public class BubbleSortTest {
     public static void main(String[] args) {
         System.out.println("test: ");
 
-        int[] array = new int[]{5, 4, 2, 3, 8};
+        int[] array = new int[]{5, 2, 4, 3, 8};
         bubbleSort(array);
         PrintUtil.printArray(array);
     }
