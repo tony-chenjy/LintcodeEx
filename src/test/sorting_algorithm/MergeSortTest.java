@@ -27,5 +27,4 @@ public class MergeSortTest {
 
     public static void merge(int[] array, int start, int mid, int end, int[] temp) {
     }
-
 }
