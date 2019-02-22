@@ -1,13 +1,3 @@
-import etc.PrintUtil;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * @author tony.chenjy
- * @date 2019-02-21
- */
 public class Solution {
     /**
      * @param nums: An integer array
@@ -55,12 +45,5 @@ public class Solution {
         } else {
             return start;
         }
-    }
-
-    public static void main(String[] args) {
-        Integer[] nums = {1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
-        List<Integer> list = Arrays.asList(nums);
-        new Solution().recoverRotatedSortedArray(list);
-        PrintUtil.printList(list);
     }
 }
