@@ -1,16 +1,14 @@
-import etc.PrintUtil;
-
-import java.util.PriorityQueue;
-
-/**
- * @author tony.chenjy
- * @date 2019/2/8 0008 22:40
- */
-public class Test {
-    public static void main(String[] args) {
-        System.out.println("testing");
-        int[] nums = {3, 10, 1000, -99, 4, 100};
-        int k = 3;
+public class Solution {
+    /**
+     * @param nums: an integer array
+     * @param k: An integer
+     * @return: the top k largest numbers in array
+     */
+    public int[] topk(int[] nums, int k) {
+        // write your code here
+        if (nums == null || nums.length < 1) {
+            return nums;
+        }
 
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>(k);
         for (int i = 0; i < nums.length; i++) {
@@ -28,6 +26,6 @@ public class Test {
         for (int i = result.length - 1; i >= 0; i--) {
             result[i] = pq.poll();
         }
-        PrintUtil.printArray(result);
+        return result;
     }
 }
