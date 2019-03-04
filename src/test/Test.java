@@ -12,10 +12,9 @@ public class Test {
         int[] nums = {3, 10, 1000, -99, 4, 100};
         int k = 3;
 
-        String[] words = new String[]{"yes","lint","code","yes","code","baby","you","baby","chrome","safari","lint","code","body","lint","code"};
-        String[] result = new Test().topKFrequentWords(words, k);
-        PrintUtil.printList(Arrays.asList(result));
-
+//        String[] words = new String[]{"yes","lint","code","yes","code","baby","you","baby","chrome","safari","lint","code","body","lint","code"};
+//        String[] result = new Test().topKFrequentWords(words, k);
+//        PrintUtil.printList(Arrays.asList(result));
     }
     /**
      * @param words: an array of string
