@@ -6,12 +6,8 @@ import java.util.*;
  * @author tony.chenjy
  * @date 2019/2/8 0008 22:40
  */
-public class Test {
+public class Add {
     public static void main(String[] args) {
-        System.out.println("testing");
-        int[] nums = {3, 10, 1000, -99, 4, 100};
-        int k = 3;
-
         System.out.println(new Test().add(1, 3));
     }
 
