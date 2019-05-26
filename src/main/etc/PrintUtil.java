@@ -35,4 +35,17 @@ public class PrintUtil {
             System.out.println(array[i]);
         }
     }
+
+    public static void printArray(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            System.out.print(" ");
+        }
+    }
+
+    public static void printlnArray(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
+    }
 }

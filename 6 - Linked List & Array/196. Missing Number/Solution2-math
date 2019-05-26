@@ -1,0 +1,15 @@
+//Math
+public class Solution {
+    /**
+     * @param nums: an array of integers
+     * @return: an integer
+     */
+    public int findMissing(int[] nums) {
+        long N = nums.length;
+        long sum = N * (N + 1) / 2;
+        for(int i : nums){
+            sum -= i;
+        }
+        return (int)sum;
+    }
+}
