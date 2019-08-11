@@ -1,0 +1,42 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        if (points == null || points.length < 1) {
+            return new int[0][0];
+        }
+        if (points[0] == null || points[0].length < 1) {
+            return new int[0][0];
+        }
+        if (points.length <= K) {
+            return points;
+        }
+
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(K, new Comparator<int[]>(){
+            public int compare(int[] point1, int[] point2) {
+                int distance1 = point1[0] * point1[0] + point1[1] * point1[1];
+                int distance2 = point2[0] * point2[0] + point2[1] * point2[1];
+                return distance2 - distance1;
+            }
+        });
+
+        for (int[] point : points) {
+            if (pq.size() < K) {
+                pq.offer(point);
+            } else {
+                int[] point1 = pq.peek();
+                int distance1 = point1[0] * point1[0] + point1[1] * point1[1];
+                int distance = point[0] * point[0] + point[1] * point[1];
+
+                if (distance < distance1) {
+                    pq.poll();
+                    pq.offer(point);
+                }
+            }
+        }
+
+        int[][] result = new int[pq.size()][2];
+        for (int i = result.length - 1; i >= 0; i--) {
+            result[i] = pq.poll();
+        }
+        return result;
+    }
+}

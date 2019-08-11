@@ -1,0 +1,66 @@
+/**
+ * 这题要求最多的partition。
+ * 那么我们从左到右遍历一遍，用贪心算法。
+ * 能分马上分。除非这个字母在后边还出现而不可分离。
+ * 那么聪明的读者可能想到了，我怎么知道这个/些字符在后边还有没有，有的话在多后？
+ * 我这里采用的是先扫一遍用HashMap把每个char的起始坐标给缓存起来，
+ * 第二遍直接查缓存，进而得出结果。
+ *
+ * 时间复杂度就是O(n)
+ */
+class Solution {
+    /**
+     * @param S
+     * @return
+     */
+    public List<Integer> partitionLabels(String S) {
+        if (S == null) {
+            return new LinkedList<>();
+        }
+
+        // core logic
+        HashMap<Character, Pair> lookup = new HashMap<>();
+        for (int i = 0; i < S.length(); i++) {
+            if (lookup.containsKey(S.charAt(i))) {
+                lookup.get(S.charAt(i)).end = i;
+            } else {
+                lookup.put(S.charAt(i), new Pair(i, i));
+            }
+        }
+
+        LinkedList<Integer> ends = new LinkedList<>();
+        for (int i = 0; i < S.length(); ) {
+            int end = Math.max(i, lookup.get(S.charAt(i)).end);
+            while (i < end) {
+                i++;
+                end = Math.max(end, lookup.get(S.charAt(i)).end);
+            }
+            ends.add(end + 1);
+            i++;
+        }
+        LinkedList<Integer> results = new LinkedList<>();
+        results.add(ends.get(0));
+        for (int i = 1; i < ends.size(); i++) {
+            results.add(ends.get(i) - ends.get(i - 1));
+        }
+        return results;
+    }
+
+    private class Pair {
+        int start;
+        int end;
+
+        public Pair(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        @Override
+        public String toString() {
+            return "Pair{" +
+                    "start=" + start +
+                    ", end=" + end +
+                    '}';
+        }
+    }
+}

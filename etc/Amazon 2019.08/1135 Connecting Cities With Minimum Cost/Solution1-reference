@@ -1,0 +1,46 @@
+/**
+ * 用到了最小生成树算法 Kruskal 算法, 具体方法是每次选出最低cost的边, 如果两顶点并不连通, 则cost加入最终答案且同时连通这两个顶点.
+ */
+class Solution {
+    public:
+    int find(int x) {
+        if (father[x] == x) {
+            return x;
+        }
+        return father[x] = find(father[x]);
+    }
+
+    void connect(int a, int b) {
+        int root_a = find(a);
+        int root_b = find(b);
+        if (root_a != root_b) {
+            father[root_b] = root_a;
+            num--;
+        }
+    }
+
+    // Kruskal算法
+    int minimumCost(int N, vector<vector<int>>& connections) {
+        num = N;
+        sort(connections.begin(), connections.end(), [](vector<int> a, vector<int> b) {
+            return a[2] < b[2];
+        });
+
+        father.resize(N + 1);
+        for (int i = 1; i <= N; i++) {
+            father[i] = i;
+        }
+
+        int ans = 0;
+        for (auto c : connections) {
+            if (find(c[0]) == find(c[1])) continue;
+            ans += c[2];
+            connect(c[0], c[1]);
+        }
+
+        return num == 1 ? ans : -1;
+    }
+    private:
+    vector<int> father;
+    int num;
+};

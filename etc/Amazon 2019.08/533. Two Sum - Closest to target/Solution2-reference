@@ -1,0 +1,35 @@
+public class Solution {
+    /**
+     * @param nums an integer array
+     * @param target an integer
+     * @return the difference between the sum and the target
+     */
+    int diff = Integer.MAX_VALUE;
+    int T = 0;
+
+    public void update(int[] A, int x, int y) {
+        if (x != y && x >= 0 && x < A.length && y >= 0 && y < A.length) {
+            diff = Math.min(diff, Math.abs(A[x] + A[y] - T));
+        }
+    }
+
+    public int twoSumClosest(int[] A, int target) {
+        // Write your code here
+        T = target;
+        if (A == null || A.length < 2) {
+            return -1;
+        }
+
+        Arrays.sort(A);
+
+        int j = A.length - 1;
+        for (int i = 0; i < A.length; ++i) {
+            while (j >= 0 && A[i] + A[j] > target) --j;
+            update(A, i, j + 1);
+            update(A, i, j);
+            update(A, i, j - 1);
+        }
+
+        return diff;
+    }
+}
