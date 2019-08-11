@@ -14,6 +14,7 @@ public class PrintUtil {
             System.out.print(list.get(i));
             System.out.print(" ");
         }
+        System.out.println();
     }
 
     public static void printlnList(List list) {
@@ -28,9 +29,23 @@ public class PrintUtil {
             System.out.print(array[i]);
             System.out.print(" ");
         }
+        System.out.println();
     }
 
     public static void printlnArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
+    }
+    public static void printArray(char[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            System.out.print(" ");
+        }
+        System.out.println();
+    }
+
+    public static void printlnArray(char[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
@@ -41,6 +56,7 @@ public class PrintUtil {
             System.out.print(array[i]);
             System.out.print(" ");
         }
+        System.out.println();
     }
 
     public static void printlnArray(String[] array) {

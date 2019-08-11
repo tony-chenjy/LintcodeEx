@@ -17,32 +17,19 @@ public class Test {
             return "0";
         }
 
-        int len = num.length() - k;
-        char[] stack = new char[num.length()];
         int top = 0;
-        int n = 0;
+        char[] chars = new char[num.length()];
 
         for (int i = 0; i < num.length(); i++) {
-            if (top == 0) {
-                stack[top++] = num.charAt(i);
-                continue;
+            while (top > 0 && k > 0 && chars[top - 1] >= num.charAt(i)) {
+                top--;
+                k--;
             }
-            if (n < k) {
-                if (num.charAt(i) < stack[top - 1]) {
-                    top--;
-                    n++;
-                }
-            }
-            stack[top++] = num.charAt(i);
+            chars[top++] = num.charAt(i);
         }
-
-        int count_zero = 0;
-        while (count_zero < stack.length && stack[count_zero] == '0') {
-            count_zero++;
-        }
-        if (count_zero == stack.length) {
-            return "0";
-        }
-        return new String(stack, count_zero, len - count_zero);
+        PrintUtil.printArray(chars);
+        System.out.println(chars.length);
+        System.out.println(chars.length - k);
+        return new String(chars, 0, chars.length - k);
     }
 }
