@@ -1,0 +1,30 @@
+public class Solution {
+    /**
+     * @param S: a string
+     * @return: a list of integers representing the size of these parts
+     */
+    public List<Integer> partitionLabels(String S) {
+        // Write your code here
+        // fault tolerance judgement
+        // TODO
+
+        // record the last position of each char
+        int[] pos = new int[26];
+        for (int i = 0; i < S.length(); i++) {
+            pos[S.charAt(i) - 'a'] = i;
+        }
+
+        // split the string
+        List<Integer> list = new ArrayList<>();
+        int left = 0, right = 0;
+        for (int i = 0; i < S.length(); i++) {
+            // update the right index : the last position of the current char could be the end of this substring
+            right = Math.max(right, pos[S.charAt(i) - 'a']);
+            if (right == i) {
+                list.add(right - left + 1);
+                left = i + 1;
+            }
+        }
+        return list;
+    }
+}
