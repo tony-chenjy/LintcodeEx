@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.SynchronousQueue;
@@ -17,45 +14,20 @@ public class Main {
     public final static Object lock2 = new Object();
 
     public static void main(String[] args) throws InterruptedException {
-        ConcurrentHashMap map = new ConcurrentHashMap();
-        // 死锁
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (lock1) {
-                    try {
-                        System.out.println(Thread.currentThread().getName() + " start");
-                        Thread.sleep(5);
-                        synchronized (lock2) {
-                            System.out.println(Thread.currentThread().getName());
-                        }
-                        System.out.println(Thread.currentThread().getName() + " end");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (lock2) {
-                    try {
-                        System.out.println(Thread.currentThread().getName() + " start");
-                        Thread.sleep(5);
-                        synchronized (lock1) {
-                            System.out.println(Thread.currentThread().getName());
-                        }
-                        System.out.println(Thread.currentThread().getName() + " end");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        // new Main().testRandom();
+        new Main().testTopK();
+    }
 
-        thread1.start();
-        thread2.start();
+    private void testTopK() {
+        new Solution().topKFrequent(new int[]{1,1,1,2,2,3}, 2);
+    }
+
+    private void testRandom() {
+        Random random = new Random();
+        System.out.println(random.nextInt(10));
+
+        double rand = Math.random();
+        System.out.println(rand * 100 % 10);
     }
 
     /**
@@ -96,6 +68,54 @@ public class Main {
         Interval(int start, int end) {
             this.start = start;
             this.end = end;
+        }
+    }
+    class Solution {
+        public List<Integer> topKFrequent(int[] nums, int k) {
+            if (nums == null || nums.length < 1) {
+                return null;
+            }
+
+            Map<Integer, Integer> map = new HashMap<>();
+            for (int num : nums) {
+                Integer count = map.get(num);
+                if (count == null) {
+                    count = 1;
+                } else {
+                    count++;
+                }
+                map.put(num, count);
+            }
+
+            PriorityQueue<ResultType> pq = new PriorityQueue<>(k + 1);
+            for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                pq.offer(new ResultType(entry.getKey(), entry.getValue()));
+                if (pq.size() > k) {
+                    pq.poll();
+                }
+            }
+
+            List<Integer> list = new ArrayList<>(pq.size());
+            for (int i = 0; i <= pq.size(); i++) {
+                list.add(pq.poll().number);
+            }
+            return list;
+        }
+
+        class ResultType implements Comparable<ResultType>{
+            int number;
+            int count;
+            public ResultType(int number, int count) {
+                this.number = number;
+                this.count = count;
+            }
+
+            public int compareTo(ResultType rt) {
+                if (this.count == rt.count) {
+                    return this.number - rt.number;
+                }
+                return this.count - rt.count;
+            }
         }
     }
 }

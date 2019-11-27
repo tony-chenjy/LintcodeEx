@@ -1,0 +1,55 @@
+public class RandomizedSet {
+
+    List<Integer> list;
+    Map<Integer, Integer> map;
+    Random random;
+    public RandomizedSet() {
+        // do intialization if necessary
+        // 用一个list存数，用一个HashMap记录下<val, index> 数对应的坐标(numToIndex)
+        list = new ArrayList<>();
+        map = new HashMap<>();
+        random = new Random();
+    }
+
+    /*
+     * @param val: a value to the set
+     * @return: true if the set did not already contain the specified element or false
+     */
+    public boolean insert(int val) {
+        if(map.containsKey(val)){
+            return false;
+        }
+        list.add(val);
+        map.put(val, list.size()-1);
+        return true;
+    }
+
+    /*
+     * @param val: a value from the set
+     * @return: true if the set contained the specified element or false
+     */
+    public boolean remove(int val) {
+        if(!map.containsKey(val)){
+            return false;
+        }
+        int index = map.get(val);
+        // list.remove(index);
+        // swap非常神来之笔，可以保证list中其他元素的index order不变，
+        // 用map去numToIndex获取的数也是正确的数，
+        // 但是map里面已经remove里这个元素的numToIndex，所以不会找到这个元素的
+        Collections.swap(list, index, list.size()-1);
+        map.put(list.get(index), index);
+        map.remove(val);
+        list.remove(list.size()-1);
+        return true;
+    }
+
+    /*
+     * @return: Get a random element from the set
+     */
+    public int getRandom() {
+        int r = random.nextInt(list.size());
+        // System.out.println(list.get(r));
+        return list.get(r);
+    }
+}

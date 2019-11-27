@@ -1,0 +1,94 @@
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        if (nums == null || nums.length < 1) {
+            return null;
+        }
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : nums) {
+            Integer count = map.get(num);
+            if (count == null) {
+                count = 1;
+            } else {
+                count++;
+            }
+            map.put(num, count);
+        }
+
+        PriorityQueue<Rclass Solution {
+            public List<Integer> topKFrequent(int[] nums, int k) {
+                if (nums == null || nums.length < 1) {
+                    return null;
+                }
+
+                Map<Integer, Integer> map = new HashMap<>();
+                PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(k, new Comparator<Map.Entry<Integer, Integer>> () {
+                    public int compare(Map.Entry<Integer, Integer> entry1,
+                                       Map.Entry<Integer, Integer> entry2) {
+                        return entry1.getValue() - entry2.getValue();
+                    }
+                });
+
+                // count num
+                for (int num : nums) {
+                    if (map.containsKey(num)) {
+                        map.put(num, map.get(num) + 1);
+                    } else {
+                        map.put(num, 1);
+                    }
+                }
+
+                // top k
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    if (pq.size() < k) {
+                        pq.offer(entry);
+                    } else {
+                        if (pq.peek().getValue() < entry.getValue()) {
+                            pq.poll();
+                            pq.offer(entry);
+                        }
+                    }
+                }
+
+                List<Integer> list = new ArrayList<>();
+                while (!pq.isEmpty()) {
+                    list.add(pq.poll().getKey());
+                }
+                for (int i = 0, j = list.size() - 1; i < j; i++, j--) {
+                    int temp = list.get(i);
+                    list.set(i, list.get(j));
+                    list.set(j, temp);
+                }
+                return list;
+            }
+        }esultType> pq = new PriorityQueue<>(k + 1);
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            pq.offer(new ResultType(entry.getKey(), entry.getValue()));
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+
+        List<Integer> list = new ArrayList<>(pq.size());
+        for (int i = pq.size() - 1; i >= 0; i--) {
+            list.set(i, pq.poll().number);
+        }
+        return list;
+    }
+
+    class ResultType implements Comparable<ResultType>{
+        int number;
+        int count;
+        public ResultType(int number, int count) {
+            this.number = number;
+            this.count = count;
+        }
+
+        public int compareTo(ResultType rt) {
+            if (this.count == rt.count) {
+                return this.number - rt.number;
+            }
+            return this.count - rt.count;
+        }
+    }
+}
