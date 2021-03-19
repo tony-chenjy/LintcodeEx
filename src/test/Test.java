@@ -1,6 +1,6 @@
 import etc.PrintUtil;
 
-import java.util.HashMap;
+import java.util.*;
 
 
 /**
@@ -9,75 +9,34 @@ import java.util.HashMap;
  */
 public class Test {
     public static void main(String[] args) {
-        new HashMap().put("a","a");
-//        System.out.println(new Test().removeKdigits("1432219", 3)); // "1219"
+        StringBuilder sb = new StringBuilder();
 
-        System.out.println(new Solution().numberOfWay(3, 3, 2, new int[][]{{1,1},{2,2}}));
-        System.out.println(new Solution().numberOfWay(2, 2, 1, new int[][]{{0,1}}));
-        System.out.println(new Solution().numberOfWay(2, 2, 1, new int[][]{{0,0}}));
-    }
+        PrintUtil.printlnArray(new double[]{Math.pow(2, 10)});
 
-    public String removeKdigits(String num, int k) {
-        // write your code here
-        if (num == null || num.length() < 1 || num.length() <= k) {
-            return "0";
-        }
-
-        int top = 0;
-        char[] chars = new char[num.length()];
-
-        for (int i = 0; i < num.length(); i++) {
-            while (top > 0 && k > 0 && chars[top - 1] >= num.charAt(i)) {
-                top--;
-                k--;
-            }
-            chars[top++] = num.charAt(i);
-        }
-        PrintUtil.printArray(chars);
-        System.out.println(chars.length);
-        System.out.println(chars.length - k);
-        return new String(chars, 0, chars.length - k);
     }
 }
 
-class Solution {
+/**
+ * s = null, t = null, return = ""
+ * s = "", t = "", return = ""
+ * s = "A", t = "", return = ""
+ * s = "", t = "A", return = ""
+ * s = "A", t = "A", return = "A"
+ * s = "AB", t = "A", return = "A"
+ * s = "ABCAB", t = "AC", return = "CA"
+ */
 
-    public int numberOfWay(int x, int y, int n, int[][] matrix) {
-        int[][] dp = new int[x + 1][y + 1];
+/*
+Example:
 
-        // set boss position
-        for (int i = 0; i < matrix.length; i++) {
-            if (matrix[i][0] == 0 && matrix[i][1] == 0) {
-                return 0;
-            }
-            dp[matrix[i][0]][matrix[i][1]] = -1;
-        }
+Input: S = "ADOBECODEBANC", T = "ABC"
+Output: "BANC"
+Note:
 
-        // init dp
-        for (int i = 1; i < dp.length; i++) {
-            if (dp[i][0] == -1) {
-                break;
-            } else {
-                dp[i][0] = 1;
-            }
-        }
-        for (int j = 1; j < dp[0].length; j++) {
-            if (dp[0][j] == -1) {
-                break;
-            } else {
-                dp[0][j] = 1;
-            }
-        }
+If there is no such window in S that covers all characters in T, return the empty string "".
+If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
-        for (int i = 1; i < dp.length; i++) {
-            for (int j = 1; j < dp[0].length; j++) {
-                if (dp[i][j] == -1) {
-                    continue;
-                }
-
-                dp[i][j] = (dp[i - 1][j] == -1 ? 0 : dp[i - 1][j]) + (dp[i][j - 1] == -1 ? 0 : dp[i][j - 1]);
-            }
-        }
-        return dp[x][y];
-    }
-}
+来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/minimum-window-substring
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ */

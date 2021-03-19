@@ -1,0 +1,54 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        if (s == null || p == null || s.length() < 1 || p.length() < 1 || s.length() < p.length()) {
+            return new ArrayList<>();
+        }
+
+        // init
+        Map<Character, Integer> needs = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        for (char c : p.toCharArray()) {
+            needs.put(c, needs.getOrDefault(c, 0) + 1);
+        }
+
+        List<Integer> list = new ArrayList<>();
+        int left = 0;
+        int right = 0;
+        int match = 0;
+        while (right < s.length()) {
+            char end = s.charAt(right);
+            if (needs.containsKey(end)) {
+                window.put(end, window.getOrDefault(end, 0) + 1);
+                if (window.get(end).equals(needs.get(end))) {
+                    match++;
+                }
+            }
+            right++;
+
+            while (match == needs.size()) {
+                if (right - left == p.length()) {
+                    list.add(left);
+                }
+
+                char start = s.charAt(left);
+                if (needs.containsKey(start)) {
+                    window.put(start, window.get(start) - 1);
+                    if (window.get(start) < needs.get(start)) {
+                        match--;
+                    }
+                }
+                left++;
+            }
+        }
+        return list;
+    }
+}
+
+/**
+ s = null, p = null, return = []
+ s = "", p = "", return = []
+ s = "", p = "a", return = []
+ s = "a", p = "a", return = [0]
+ s = "abcb", p = "b", return = [1,3]
+ s = "abcb", p = "bc", return = [1,2]
+ */

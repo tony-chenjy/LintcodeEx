@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class PrintUtil {
 
+    // print number
+    public static void printNumber(int number) {
+        System.out.println(number);
+    }
+
     // print List
     public static void printList(List list) {
         for (int i = 0; i < list.size(); i++) {
@@ -33,6 +38,11 @@ public class PrintUtil {
     }
 
     public static void printlnArray(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(array[i]);
+        }
+    }
+    public static void printlnArray(double[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }

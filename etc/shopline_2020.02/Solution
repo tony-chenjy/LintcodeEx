@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * @author tony.chenjy
+ * @date 2020-02-19
+ */
+public class Main {
+    public static void main(String[] args) {
+        // 1
+        String str = null;
+        for (int i = 1; i <= 100; i++) {
+            str = bugfix(i);
+            if (str == null || str.length() < 1) {
+                continue;
+            }
+            System.out.println(i + ": " + str);
+        }
+
+        // 2
+        int[] result = numbersNotExist(new int[]{1,2,3,4,5,6}, new int[]{2,3,1,0,5});
+        for (int num : result) {
+            System.out.println(num);
+        }
+    }
+
+    /*
+    Given that there is an array contains number from 1 to 100.
+    You have to design a programme / function to achieve below objectives:
+    When the number is multiple of 3, print "bug"
+    When the number is multiple of 5, print "fix"
+    When the number is multiple of 3 and 5, print "bugfix"
+     */
+    private static String bugfix(int num) {
+        if (num % 15 == 0) {
+            return "bugfix";
+        }
+        if (num % 5 == 0) {
+            return "fix";
+        }
+        if (num % 3 == 0) {
+            return "bug";
+        }
+        return "";
+    }
+
+    /*
+    Given two arrays, [1,2,3,4,5] and [2,3,1,0,5]
+    find which number is/are not present in the second array
+    ans: [4]
+     */
+    private static int[] numbersNotExist(int[] source, int[] target) {
+        if (source == null || source.length < 1) {
+            return new int[]{};
+        }
+        if (target == null || target.length < 1) {
+            return source;
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int num : target) {
+            set.add(num);
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int num : source) {
+            if (!set.contains(num)) {
+                list.add(num);
+            }
+        }
+
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+}

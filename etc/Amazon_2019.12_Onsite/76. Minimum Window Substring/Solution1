@@ -1,0 +1,75 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        // fault tolerance judgement
+        if (s == null || t == null || s.length() < 1 || t.length() < 1 || s.length() < t.length()) {
+            return "";
+        }
+        if (s.equals(t)) {
+            return t;
+        }
+
+        Map<Character, Integer> needs = new HashMap<>();
+        Map<Character, Integer> window = new HashMap<>();
+        // init
+        for (char c : t.toCharArray()) {
+            Integer count = needs.get(c);
+            if (count == null) {
+                needs.put(c, 1);
+            } else {
+                needs.put(c, count + 1);
+            }
+        }
+
+        // expand the window
+        int left = 0;
+        int right = 0;
+        int match = 0;
+        int minLen = Integer.MAX_VALUE;
+        int minIndex = left;
+        while (right < s.length()) {
+            char end = s.charAt(right);
+            if (needs.containsKey(end)) {
+                if (window.containsKey(end)) {
+                    window.put(end, window.get(end) + 1);
+                } else {
+                    window.put(end, 1);
+                }
+                if (window.get(end).equals(needs.get(end))) {
+                    match++;
+                }
+            }
+            right++;
+
+            while (match == needs.size()) {
+                if (right - left < minLen) {
+                    minLen = right - left;
+                    minIndex = left;
+                }
+                // collapse the window
+                char start = s.charAt(left);
+                if (needs.containsKey(start)) {
+                    window.put(start, window.get(start) - 1);
+                    if (window.get(start) < needs.get(start)) {
+                        match--;
+                    }
+                }
+                left++;
+            }
+        }
+        return minLen == Integer.MAX_VALUE ? "" : s.substring(minIndex, minIndex + minLen);
+    }
+}
+
+/**
+ test case
+ S = null, T = null
+ S = "", T = ""
+ S = "A", T = "", return = ""
+ S = "A", T = "A", return = "A"
+ S = "A", T = "AB", return = ""
+ S = "ACBAC", T = "AB", return = "BA"
+ */
+
+
+
+
