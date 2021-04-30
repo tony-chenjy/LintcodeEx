@@ -4,21 +4,6 @@ import etc.PrintUtil;
 
 public class Main {
     public static void main(String[] args) {
-        // System.out.println(new Solution().findLadders("hit", "cog", Arrays.asList("hot","dot","dog","lot","log","cog")));
-        // System.out.println(new Solution().minWindow("ADOBECODEBANC", "ABC"));
-        // System.out.println(new Solution().ladderLength("hot", "dog", Arrays.asList("hot","dog")));
-
-        // LRUCache cache = new LRUCache(2);
-        // cache.put(1, 1);
-        // cache.put(2, 2);
-        // PrintUtil.printNumber(cache.get(1));
-        // cache.put(3, 3);
-        // PrintUtil.printNumber(cache.get(2));
-        // cache.put(4, 4);
-        // PrintUtil.printNumber(cache.get(1));
-        // PrintUtil.printNumber(cache.get(3));
-        // PrintUtil.printNumber(cache.get(4));
-
         PrintUtil.printList(new Solution().getArray(
             Arrays.asList(2, 4), 
             Arrays.asList(Arrays.asList(2, 5), Arrays.asList(7, 5), Arrays.asList(1, 3))));
