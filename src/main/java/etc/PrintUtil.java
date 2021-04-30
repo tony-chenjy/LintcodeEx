@@ -42,6 +42,26 @@ public class PrintUtil {
             System.out.println(array[i]);
         }
     }
+
+    public static void printArray(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.print(array[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public static void printlnArray(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                System.out.println(array[i][j]);
+            }
+        }
+    }
+
     public static void printlnArray(double[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);

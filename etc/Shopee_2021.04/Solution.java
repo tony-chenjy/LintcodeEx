@@ -1,31 +1,6 @@
+// 1. Array A represents persons infected by covid-19, nested array B represents mutual contacts for a group of people (size of inner array is guaranteed to be 2), return array C which contains all persons that might have been infected. For example, if A=[2, 4], B=[[2, 5], [7, 5], [1, 3]], return C=[5, 7]
 
-import java.util.*;
-import etc.PrintUtil;
-
-public class Main {
-    public static void main(String[] args) {
-        // System.out.println(new Solution().findLadders("hit", "cog", Arrays.asList("hot","dot","dog","lot","log","cog")));
-        // System.out.println(new Solution().minWindow("ADOBECODEBANC", "ABC"));
-        // System.out.println(new Solution().ladderLength("hot", "dog", Arrays.asList("hot","dog")));
-
-        // LRUCache cache = new LRUCache(2);
-        // cache.put(1, 1);
-        // cache.put(2, 2);
-        // PrintUtil.printNumber(cache.get(1));
-        // cache.put(3, 3);
-        // PrintUtil.printNumber(cache.get(2));
-        // cache.put(4, 4);
-        // PrintUtil.printNumber(cache.get(1));
-        // PrintUtil.printNumber(cache.get(3));
-        // PrintUtil.printNumber(cache.get(4));
-
-        PrintUtil.printList(new Solution().getArray(
-            Arrays.asList(2, 4), 
-            Arrays.asList(Arrays.asList(2, 5), Arrays.asList(7, 5), Arrays.asList(1, 3))));
-    }
-}
-
-class Solution {
+public class Solution {
 
     public List<Integer> getArray(List<Integer> A, List<List<Integer>> B) {
         Map<Integer, List<Integer>> graph = buildGraph(B);
@@ -77,3 +52,12 @@ class Solution {
         }
     }
 }
+/*
+[[2, 5], [7, 5], [1, 3]]
+
+2 -> 5
+5 -> 2, 7
+7 -> 5
+1 -> 3
+3 -> 1
+*/
